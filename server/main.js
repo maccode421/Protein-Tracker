@@ -3,6 +3,14 @@ import { Meteor } from 'meteor/meteor';
 Users = new Meteor.Collection('users')
 History = new Meteor.Collection('history')
 
+Meteor.publish('allUsers', function() {
+  return Users.find()
+})
+
+Meteor.publish('allHistory', function() {
+  return History.find()
+})
+
 Meteor.startup(() => {
   // code to run on server at startup
 

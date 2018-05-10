@@ -6,6 +6,9 @@ import './main.html';
 Users = new Meteor.Collection('users')
 History = new Meteor.Collection('history')
 
+Meteor.subscribe('allUsers')
+Meteor.subscribe('allHistory')
+
 Template.userDetails.helpers({
   user: function() {
     return Users.findOne()
