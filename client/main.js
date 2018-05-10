@@ -14,6 +14,21 @@ Template.userDetails.helpers({
 
 Template.history.helpers({
   historyItem: function() {
-    return History.find()
+    return History.find({}, {sort: { date: -1 }, limit: 5})
+  }
+})
+
+Template.userDetails.events({
+  'click #addAmount' : function(e) {
+    e.preventDefault()
+    
+    let amount = parseInt($('#amount').val())
+
+    Users.update(this._id, { $inc: { total: amount } })
+    History.insert({
+      value: amount,
+      date: new Date().toTimeString(),
+      userId: this._id
+    })
   }
 })
