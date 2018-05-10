@@ -4,14 +4,20 @@
 
 <body>
   <h1>Protein Tracker</h1>
+  {{> userDetails}}
+  {{> history}}
+</body>
+
+<template name="userDetails">
   <h2>Total: <span>100</span></h2>
   <h2>Goal: <span>200</span></h2>
   <h3>Enter amount:</h3>
   <input type="text" id="amount">
   <input type="submit" id="addAmount" value="Add Protein">
+</template>
 
+<template name="history">
   <h2>Last 5 Entries</h2>
   <p>5/11/2018 4:09pm - 20</p>
-
-</body>
+</template>
 
