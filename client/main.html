@@ -9,15 +9,19 @@
 </body>
 
 <template name="userDetails">
-  <h2>Total: <span>100</span></h2>
-  <h2>Goal: <span>200</span></h2>
+  {{#with user}}
+  <h2>Total: <span>{{total}}</span></h2>
+  <h2>Goal: <span>{{goal}}</span></h2>
   <h3>Enter amount:</h3>
   <input type="text" id="amount">
   <input type="submit" id="addAmount" value="Add Protein">
+  {{/with}}
 </template>
 
 <template name="history">
   <h2>Last 5 Entries</h2>
-  <p>5/11/2018 4:09pm - 20</p>
+  {{#each historyItem}}
+  <p>{{date}} - {{value}}</p>
+  {{/each}}
 </template>
 
