@@ -1,14 +1,23 @@
 import './main.html';
 
-Users = new Meteor.Collection('protein_data')
+ProteinData = new Meteor.Collection('protein_data')
 History = new Meteor.Collection('history')
 
-Meteor.subscribe('allUsers')
+Meteor.subscribe('allProteinData')
 Meteor.subscribe('allHistory')
 
 Template.userDetails.helpers({
   user: function() {
-    return Users.findOne()
+    let data = ProteinData.findOne()
+    if (!data) {
+      data = {
+        userId: Meteor.userId(),
+        total: 0,
+        goal: 200
+      }
+      ProteinData.insert(data)
+    }
+    return data
   }
 })
 
@@ -24,7 +33,7 @@ Template.userDetails.events({
     
     let amount = parseInt($('#amount').val())
 
-    Users.update(this._id, { $inc: { total: amount } })
+    ProteinData.update(this._id, { $inc: { total: amount } })
     History.insert({
       value: amount,
       date: new Date().toTimeString(),
