@@ -5,6 +5,17 @@ import './main.html';
 ProteinData = new Meteor.Collection('protein_data')
 History = new Meteor.Collection('history')
 
+Meteor.methods({
+  addProtein: function(amount) {
+    ProteinData.update({userId: this.userId}, { $inc: { total: amount } })
+    History.insert({
+      value: amount,
+      date: new Date().toTimeString(),
+      userId: this.userId
+    })
+  }
+})
+
 Meteor.subscribe('allProteinData')
 Meteor.subscribe('allHistory')
 
@@ -44,13 +55,6 @@ Template.userDetails.events({
     e.preventDefault()
     
     let amount = parseInt($('#amount').val())
-
-    ProteinData.update(this._id, { $inc: { total: amount } })
-    History.insert({
-      value: amount,
-      date: new Date().toTimeString(),
-      userId: this.userId
-    })
 
     Session.set('lastAmount', amount)
   }
