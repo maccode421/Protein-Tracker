@@ -8,6 +8,13 @@ History = new Meteor.Collection('history')
 Meteor.subscribe('allProteinData')
 Meteor.subscribe('allHistory')
 
+Deps.autorun(function() {
+  if (Meteor.user())
+    console.log("User logged in: " + Meteor.user().profile.name)
+  else
+    console.log("User logged out!")
+})
+
 Template.userDetails.helpers({
   user: function() {
     let data = ProteinData.findOne()
