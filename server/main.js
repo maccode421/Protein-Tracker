@@ -8,7 +8,7 @@ Meteor.publish('allProteinData', function() {
 })
 
 Meteor.publish('allHistory', function() {
-  return History.find({ userId: this.userId})
+  return History.find({ userId: this.userId }, {sort: { date: -1 }, limit: 5})
 })
 
 Meteor.startup(() => {

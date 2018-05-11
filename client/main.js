@@ -23,7 +23,7 @@ Template.userDetails.helpers({
 
 Template.history.helpers({
   historyItem: function() {
-    return History.find({}, {sort: { date: -1 }, limit: 5})
+    return History.find({}, {sort: { date: -1 }})
   }
 })
 
@@ -37,7 +37,7 @@ Template.userDetails.events({
     History.insert({
       value: amount,
       date: new Date().toTimeString(),
-      userId: this._id
+      userId: this.userId
     })
   }
 })
