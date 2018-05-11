@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 
-Users = new Meteor.Collection('users')
+Users = new Meteor.Collection('protein_data')
 History = new Meteor.Collection('history')
 
 Meteor.publish('allUsers', function() {
