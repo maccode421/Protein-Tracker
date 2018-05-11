@@ -56,6 +56,11 @@ Template.userDetails.events({
     
     let amount = parseInt($('#amount').val())
 
+    Meteor.call('addProtein', amount, function(error, id) {
+      if (error)
+        return alert(error.reason)
+    })
+
     Session.set('lastAmount', amount)
   }
 })
