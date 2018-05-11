@@ -1,3 +1,5 @@
+import { Session } from 'meteor/session'
+
 import './main.html';
 
 ProteinData = new Meteor.Collection('protein_data')
@@ -18,6 +20,9 @@ Template.userDetails.helpers({
       ProteinData.insert(data)
     }
     return data
+  },
+  lastAmount : function() {
+    return Session.get('lastAmount')
   }
 })
 
@@ -39,5 +44,7 @@ Template.userDetails.events({
       date: new Date().toTimeString(),
       userId: this.userId
     })
+
+    Session.set('lastAmount', amount)
   }
 })
