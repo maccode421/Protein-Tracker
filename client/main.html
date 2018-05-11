@@ -4,8 +4,11 @@
 
 <body>
   <h1>Protein Tracker</h1>
-  {{> userDetails}}
-  {{> history}}
+  {{> loginButtons}}
+  {{#if currentUser}}
+    {{> userDetails}}
+    {{> history}}
+  {{/if}}
 </body>
 
 <template name="userDetails">
