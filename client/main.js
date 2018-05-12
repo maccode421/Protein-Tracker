@@ -5,9 +5,24 @@ import './main.html';
 ProteinData = new Meteor.Collection('protein_data')
 History = new Meteor.Collection('history')
 
+Meteor.subscribe('allProteinData')
+Meteor.subscribe('allHistory')
+
 Meteor.methods({
   addProtein: function(amount) {
-    ProteinData.update({userId: this.userId}, { $inc: { total: amount } })
+
+    if (!this.isSimulation) {
+      const Future = Npm.require('fibers/future')
+      let future = new Future()
+      Meteor.setTimeout(function() {
+        future.return()
+      }, 3 * 1000)
+      future.wait()
+    } else {
+      amount = 500
+    }
+
+    ProteinData.update({ userId: this.userId }, { $inc: { total: amount } })
     History.insert({
       value: amount,
       date: new Date().toTimeString(),
@@ -15,9 +30,6 @@ Meteor.methods({
     })
   }
 })
-
-Meteor.subscribe('allProteinData')
-Meteor.subscribe('allHistory')
 
 Deps.autorun(function() {
   if (Meteor.user())
